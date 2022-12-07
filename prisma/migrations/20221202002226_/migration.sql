@@ -6,7 +6,7 @@ CREATE TABLE "donors" (
     "password" TEXT NOT NULL,
     "gender" BOOLEAN NOT NULL,
     "situation" BOOLEAN NOT NULL,
-    "birthday" TEXT NOT NULL,
+    "birthday" TEXT,
     "bloodTypeId" TEXT NOT NULL,
     CONSTRAINT "donors_bloodTypeId_fkey" FOREIGN KEY ("bloodTypeId") REFERENCES "blood_types" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -27,13 +27,16 @@ CREATE TABLE "questions" (
 );
 
 -- CreateTable
-CREATE TABLE "refresh_token" (
+CREATE TABLE "RefreshToken" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "expiresIn" INTEGER NOT NULL,
+    "expiresIn" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "donorId" TEXT NOT NULL,
-    CONSTRAINT "refresh_token_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "donors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "RefreshToken_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "donors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "donors_email_key" ON "donors"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "RefreshToken_donorId_key" ON "RefreshToken"("donorId");

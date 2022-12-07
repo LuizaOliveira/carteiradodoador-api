@@ -24,6 +24,7 @@ router.post('/auth/refresh-token', refreshToken.execute)
 
 router.get('/question', questionController.execute)
 router.get('/blood-type/:id', bloodTypeController.select)
+router.get('/blood-type', bloodTypeController.execute)
 
 router.get('/user/:id', ensureAuthenticated, createUserControllers.select)
 

@@ -2,6 +2,18 @@ import { client } from "../prisma/client";
 import { Request, Response } from "express";
 
 class BloodTypeController {
+
+  async execute(request: Request, response: Response) {
+    const bloodType = await client.bloodType.findMany({
+      select : {
+        id: true,
+        type: true,
+        rhFactor: true,
+      }
+    })
+    return response.json(bloodType)  
+  }
+
   async select(request: Request, response: Response) {
     const donorId = request.params.id;
 
@@ -18,7 +30,6 @@ class BloodTypeController {
         },
       },
     });
-    console.log(bloodType)
     return response.json(bloodType);
   }
 }

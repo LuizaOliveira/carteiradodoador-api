@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import cors from "cors";
 
 import { Request, Response } from "express";
@@ -32,7 +32,6 @@ class SessionsController {
     if (!(await compare(password, userAlreadyExists?.password))) {
       throw new Error("Email or password incorrect.");
     }
-
     const generateTokenProvider = new GenerateToken();
     const token = await generateTokenProvider.execute(userAlreadyExists.id);
 
@@ -50,8 +49,6 @@ class SessionsController {
 
     response.status(201).json({ userAlreadyExists, token, refreshToken });
   }
-  else() {
-    console.log("n é valido");
-  }
+
 }
 export { SessionsController };

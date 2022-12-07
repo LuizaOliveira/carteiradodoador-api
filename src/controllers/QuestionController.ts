@@ -15,8 +15,7 @@ class QuestionController {
         return response.status(201).json(question);
 
     }catch(err) {
-        console.log(err)
-        return response.json()
+        return response.json(err)
     }
 }
 }

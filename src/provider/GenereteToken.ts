@@ -1,15 +1,11 @@
 const { sign } = require("jsonwebtoken");
 const authConfig = require("../configs/auth");
 
-interface IGenereteToken {
-  userId: string;
-}
-
 class GenerateToken {
-  async execute({ userId }: IGenereteToken) {
+  async execute(userId: string) {
     const { secret, expiresIn } = authConfig.jwt;
     const token = sign({}, secret, {
-      subject: String(userId),
+      subject: userId.toString(),
       expiresIn,
     });
 

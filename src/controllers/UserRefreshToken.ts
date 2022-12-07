@@ -31,9 +31,9 @@ class UserRefreshToken {
           },
         });
         const generateRefreshToken = new GenerateRefreshToken();
-        const newRefreshToken = await generateRefreshToken.execute(refreshToken.id);
+        const newRefreshToken = await generateRefreshToken.execute(refreshToken.donorId);
 
-        return response.json({token :newRefreshToken})
+        return response.json({token, newRefreshToken})
 
       } catch (err) {
         console.log(err)
