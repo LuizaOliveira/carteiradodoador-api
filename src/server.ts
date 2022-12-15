@@ -3,7 +3,6 @@ import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 
 import { router } from "./routes";
-import { error } from "console";
 
 const app = express();
 
@@ -14,7 +13,7 @@ app.use(router);
 
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
-    if (error.message === "User already exists." || error.message === "Email or password incorrect.") {
+    if (error.message === "User already exists." || error.message === "Email or password incorrect." || error.message === "Passwords do not match.") {
       response.status(400);
       return response.json({
         status: "error",
@@ -28,6 +27,7 @@ app.use(
         menssage: error.message,
       });
     }
+
   }
 );
 

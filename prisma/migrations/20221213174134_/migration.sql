@@ -27,16 +27,28 @@ CREATE TABLE "questions" (
 );
 
 -- CreateTable
-CREATE TABLE "RefreshToken" (
+CREATE TABLE "refresh-token" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "expiresIn" TEXT NOT NULL,
+    "expiresIn" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "donorId" TEXT NOT NULL,
-    CONSTRAINT "RefreshToken_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "donors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "refresh-token_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "donors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "reset-password" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "expiresIn" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "donorId" TEXT NOT NULL,
+    CONSTRAINT "reset-password_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "donors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "donors_email_key" ON "donors"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "RefreshToken_donorId_key" ON "RefreshToken"("donorId");
+CREATE UNIQUE INDEX "refresh-token_donorId_key" ON "refresh-token"("donorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "reset-password_donorId_key" ON "reset-password"("donorId");

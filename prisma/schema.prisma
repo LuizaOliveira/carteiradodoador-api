@@ -20,8 +20,9 @@ model Donor {
   birthday    String?
   bloodTypeId String
 
-  refreshToken RefreshToken?
-  bloodType    bloodType     @relation(fields: [bloodTypeId], references: [id])
+  refreshToken  RefreshToken?
+  resetPassword ResetPassword?
+  bloodType     bloodType     @relation(fields: [bloodTypeId], references: [id])
 
   @@map("donors")
 }
@@ -50,60 +51,18 @@ model RefreshToken {
   createdAt DateTime @default(now())
   donor     Donor    @relation(fields: [donorId], references: [id])
   donorId   String   @unique
+
+  @@map("refresh-token")
 }
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+model ResetPassword {
+  id        String   @id @default(uuid())
+  expiresIn Int
+  createdAt DateTime @default(now())
+  donor     Donor    @relation(fields: [donorId], references: [id])
+  donorId   String   @unique
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
+  @@map("reset-password")
+}
 
-// datasource db {
-//   provider = "sqlite"
-//   url      = env("DATABASE_URL")
-// }
 
-// model Donor {
-//   id          Int  @id @default(uuid())
-//   name        String
-//   email       String  @unique
-//   password    String
-//   gender      Boolean
-//   situation   Boolean
-//   birthday    String? 
-//   bloodTypeId String
-
-//   refreshToken RefreshToken?
-//   bloodType    bloodType      @relation(fields: [bloodTypeId], references: [id])
-
-//   @@map("donors")
-// }
-
-// model bloodType {
-//   id       String  @id @default(uuid())
-//   type     String
-//   rhFactor Boolean
-//   donor    Donor[]
-
-//   @@map("blood_types")
-// }
-
-// model question {
-//   id          String @id @default(uuid())
-//   title       String
-//   description String
-//   bannerUrl   String
-
-//   @@map("questions")
-// }
-
-// model RefreshToken {
-//   id        String @id @default(uuid())
-//   expiresIn Int
-//   createdAt DateTime @default(now()) 
-//   donor     Donor  @relation(fields: [donorId], references: [id]) 
-//   donorId   Int  @unique
-
-//   @@map("refresh_token")
-// }

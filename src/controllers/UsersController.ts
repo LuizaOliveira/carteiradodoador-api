@@ -1,13 +1,6 @@
-import express from "express";
-import cors from "cors";
 import { Request, Response } from "express";
-
 import { client } from "../prisma/client";
-
 const { hash } = require("bcrypt");
-
-export const userRouter = express.Router();
-userRouter.use(cors({}));
 
 interface IDonorRequest {
   name: string;
@@ -19,7 +12,7 @@ interface IDonorRequest {
   bloodTypeId: string;
 }
 
-class CreateUserControllers {
+class UserController {
   async create(request: Request, response: Response) {
     let {
       name,
@@ -97,6 +90,7 @@ class CreateUserControllers {
     });
     return response.status(200).json(doador);
   }
+
 }
 
-export { CreateUserControllers };
+export { UserController };

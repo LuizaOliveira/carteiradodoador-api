@@ -14,7 +14,7 @@ class UserRefreshToken {
       },
     });
     if (!refreshToken) {
-      throw new Error("Refresh token invalid");
+      throw new Error("Reset password token invalid");
     }
     const refreshTokenExpired = dayjs().isAfter(
       dayjs.unix(refreshToken.expiresIn)
